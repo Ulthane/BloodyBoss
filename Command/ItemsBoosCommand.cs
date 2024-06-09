@@ -4,6 +4,7 @@ using ProjectM;
 using System.Linq;
 using VampireCommandFramework;
 using BloodyBoss.Exceptions;
+using Bloody.Core.API.v1;
 using System;
 
 namespace BloodyBoss.Commands
@@ -40,11 +41,15 @@ namespace BloodyBoss.Commands
             }
             catch (BossDontExistException)
             {
-                throw ctx.Error($"Boss with name '{BossName}' does not exist.");
+                var _message = Database.LOCALIZATIONS["MSG_Boss_Does_Not_Exist"];
+                _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                throw ctx.Error(_message);
             }
             catch (ProductExistException)
             {
-                throw ctx.Error($"This item configuration already exists at Boss '{BossName}'");
+                var _message = Database.LOCALIZATIONS["MSG_Item_Already_Exist"];
+                _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                throw ctx.Error(_message);
             }
             catch (Exception e)
             {
@@ -62,7 +67,9 @@ namespace BloodyBoss.Commands
                 if(Database.GetBoss(BossName, out BossEncounterModel Boss))
                 {
                     Boss.AddItem(ItemName,ItemPrefabID, Stack, Chance);
-                    ctx.Reply($"Item successfully added to Boss '{BossName}'");
+                    var _message = Database.LOCALIZATIONS["MSG_Item_Added_Successfully"];
+                    _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                    ctx.Reply(_message);
                 }
                 else
                 {
@@ -71,11 +78,15 @@ namespace BloodyBoss.Commands
             }
             catch (BossDontExistException)
             {
-                throw ctx.Error($"Boss with name '{BossName}' does not exist.");
+                var _message = Database.LOCALIZATIONS["MSG_Boss_Does_Not_Exist"];
+                _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                throw ctx.Error(_message);
             } 
             catch (ProductExistException)
             {
-                throw ctx.Error($"This item configuration already exists at Boss '{BossName}'");
+                var _message = Database.LOCALIZATIONS["MSG_Item_Already_Exist"];
+                _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                throw ctx.Error(_message);
             } 
             catch (Exception e)
             {
@@ -94,7 +105,9 @@ namespace BloodyBoss.Commands
                 if (Database.GetBoss(BossName, out BossEncounterModel npc))
                 {
                     npc.RemoveItem(ItemName);
-                    ctx.Reply($"Boss '{BossName}'\'s item has been successfully removed");
+                    var _message = Database.LOCALIZATIONS["MSG_Item_Removed_Succesfully"];
+                    _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                    ctx.Reply(_message);
                 }
                 else
                 {
@@ -103,11 +116,15 @@ namespace BloodyBoss.Commands
             }
             catch (BossDontExistException)
             {
-                throw ctx.Error($"Boss with name '{BossName}' does not exist.");
+                var _message = Database.LOCALIZATIONS["MSG_Boss_Does_Not_Exist"];
+                _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                throw ctx.Error(_message);
             }
             catch (ProductDontExistException)
             {
-                throw ctx.Error($"This item does not exist at Boss '{BossName}'");
+                var _message = Database.LOCALIZATIONS["MSG_Item_Does_Not_Exist"];
+                _message = _message.Replace("#boss#", FontColorChatSystem.Yellow(BossName));
+                throw ctx.Error(_message);
             }
             catch (Exception e)
             {
